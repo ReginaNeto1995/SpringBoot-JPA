@@ -1,12 +1,15 @@
 package SpringBoot.JPA.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "tb_category")
@@ -15,6 +18,9 @@ public class Category implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Long id;
 	private String name;
+	
+	@Transient
+	private Set<Product> products = new HashSet<>();
 	
 	public Category() {
 		
@@ -43,6 +49,12 @@ public class Category implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	//Nunca faz sentido ter o método set para uma coleção porque nunca vou querer alterar a coleção, posso querer adicionar e remover mas nunca alterar
+	public Set<Product> getProducts() {
+		return products;
+	}
+
 
 	@Override
 	public int hashCode() {

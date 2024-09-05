@@ -1,10 +1,9 @@
 package SpringBoot.JPA.entities;
-import jakarta.persistence.*; 
 
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,7 +33,7 @@ public class Product implements Serializable {
 	// vazia, depois não é preciso colocar no construtor
 	// HasSet é a classe que implementa a interface Set
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
 
@@ -95,7 +94,6 @@ public class Product implements Serializable {
 	public Set<Category> getCategories() {
 		return categories;
 	}
-	
 
 	@Override
 	public int hashCode() {

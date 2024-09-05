@@ -55,15 +55,6 @@ public class TestConfig implements CommandLineRunner{
 		Product p4 = new Product(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, "");
 		Product p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
 		
-		User u1 = new User(null,"Maria Brown","maria@gmail.com","9999999999","12345677");
-		User u2 = new User(null, "John Due","john@outlook.pt","234568888","000000000");	
-		
-		Order o1 = new Order(null, Instant.parse("2024-08-31T15:40:10Z"),OrderStatus.PAID,u1);
-		Order o2 = new Order(null,Instant.parse("2024-08-28T12:40:10Z"),OrderStatus.WAITING_PAYMENT,u2);
-		Order o3 = new Order(null, Instant.parse("2024-09-15T16:45:08Z"),OrderStatus.PAID,u1);
-
-		userRepository.saveAll(Arrays.asList(u1,u2));
-		orderRepository.saveAll(Arrays.asList(o1,o2,o3));
 		categoryRepository.saveAll(Arrays.asList(cat1,cat2,cat3));
 		productRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
 		
@@ -76,6 +67,19 @@ public class TestConfig implements CommandLineRunner{
 		p5.getCategories().add(cat2);
 		
 		productRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
+		
+		
+		User u1 = new User(null,"Maria Brown","maria@gmail.com","9999999999","12345677");
+		User u2 = new User(null, "John Due","john@outlook.pt","234568888","000000000");	
+		
+		Order o1 = new Order(null, Instant.parse("2024-08-31T15:40:10Z"),OrderStatus.PAID,u1);
+		Order o2 = new Order(null,Instant.parse("2024-08-28T12:40:10Z"),OrderStatus.WAITING_PAYMENT,u2);
+		Order o3 = new Order(null, Instant.parse("2024-09-15T16:45:08Z"),OrderStatus.PAID,u1);
+
+		userRepository.saveAll(Arrays.asList(u1,u2));
+		orderRepository.saveAll(Arrays.asList(o1,o2,o3));
+		
+	
 	}
 	
 	

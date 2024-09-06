@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Profile;
 import SpringBoot.JPA.entities.Category;
 import SpringBoot.JPA.entities.Order;
 import SpringBoot.JPA.entities.OrderItem;
+import SpringBoot.JPA.entities.Payment;
 import SpringBoot.JPA.entities.Product;
 import SpringBoot.JPA.entities.User;
 import SpringBoot.JPA.entities.enums.OrderStatus;
@@ -91,7 +92,12 @@ public class TestConfig implements CommandLineRunner{
 		
 		orderItemRepository.saveAll(Arrays.asList(oi1,oi2,oi3,oi4));
 		
-		
+		//Quando é uma relação de 1para1 em que uma classe é dependente, não precisa de haver repository dessa classe para guardar na base de dados
+		//Basta utilizar o set para guardar o objeto na classe não dependente
+		//E peço para guardar novamente a classe não dependente
+		Payment pay1 = new Payment(null,Instant.parse("2024-08-31T21:40:10Z"),o1);
+		o1.setPayment(pay1);
+		orderRepository.save(o1);
 	
 	}
 	

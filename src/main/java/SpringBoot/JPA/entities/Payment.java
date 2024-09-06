@@ -3,6 +3,8 @@ package SpringBoot.JPA.entities;
 import java.io.Serializable;
 import java.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,6 +24,7 @@ public class Payment implements Serializable{
 	private Long id;
 	private Instant moment;
 	
+	@JsonIgnore
 	@OneToOne
 	@MapsId //Colocamos na classe dependente, se não existir order não existe pagamento, por isso pagamento é uma "classe dependente " de order
 	private Order order;

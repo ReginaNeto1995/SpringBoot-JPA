@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import SpringBoot.JPA.entities.User;
 import SpringBoot.JPA.repositories.UserRepository;
+import SpringBoot.JPA.services.exceptions.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
 
 //Regista a classe como Service para poder ser injetado com a anotação autowired
@@ -37,7 +38,7 @@ public class UserService {
 	 */
 	public User findById(Long id) {
 		Optional<User> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(()->new ResourceNotFoundException(id));
 	}
 
 	/**

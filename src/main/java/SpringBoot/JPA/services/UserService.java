@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import SpringBoot.JPA.entities.User;
 import SpringBoot.JPA.repositories.UserRepository;
+import jakarta.transaction.Transactional;
 
 //Regista a classe como Service para poder ser injetado com a anotação autowired
 @Service
@@ -50,6 +51,19 @@ public class UserService {
 	
 	public void delete(Long id) {
 		repository.deleteById(id);
+	}
+	
+	@Transactional
+	public User update(Long id, User obj) {
+		User entity = repository.getReferenceById(id); //Prepara o objeto para trabalharmos e só depois mexe com a base de dados 
+		updateData(entity,obj);
+		return repository.save(entity);
+	}
+
+	private void updateData(User entity, User obj) {
+		entity.setName(obj.getName());
+		entity.setEmail(obj.getEmail());
+		entity.setPhone(obj.getPhone());
 	}
 
 }

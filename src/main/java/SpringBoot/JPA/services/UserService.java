@@ -13,6 +13,7 @@ import SpringBoot.JPA.entities.User;
 import SpringBoot.JPA.repositories.UserRepository;
 import SpringBoot.JPA.services.exceptions.DatabaseException;
 import SpringBoot.JPA.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 //Regista a classe como Service para poder ser injetado com a anotação autowired
@@ -65,9 +66,13 @@ public class UserService {
 	
 	@Transactional
 	public User update(Long id, User obj) {
+		try {
 		User entity = repository.getReferenceById(id); //Prepara o objeto para trabalharmos e só depois mexe com a base de dados 
 		updateData(entity,obj);
 		return repository.save(entity);
+		} catch(EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
 
 	private void updateData(User entity, User obj) {
